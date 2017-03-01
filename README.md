@@ -1,6 +1,9 @@
 # Jig-Saw Builder
 This module is used to build a jig-saw from an image file.
 
+### Note
+This project is still in development
+
 ## Example Usage
 ```js
 var jigsawBuilder = require('jigsaw-builder')
