@@ -1,0 +1,14 @@
+{
+  "name": "jigsaw-builder",
+  "version": "1.0.0",
+  "description": "Takes an image file and converts it into jig-saw pieces.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jimp": "^0.2.27"
+  }
+}
