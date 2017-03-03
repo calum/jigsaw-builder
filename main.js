@@ -1,6 +1,8 @@
 var Jimp = require('jimp')
 var fs = require('fs')
 
+var asyncLoop = require('./src/async.js').asyncLoop
+
 function build(size, imageLocation, destinationDir, callback) {
 
   // create the properties object
@@ -14,13 +16,33 @@ function build(size, imageLocation, destinationDir, callback) {
   );
 
   // load the image
-  /**
   Jimp.read(imageLocation, function (err, image) {
     if (err) callback(err)
 
-  });
-  **/
-  callback(null)
+    var width = image.bitmap.width
+    var height = image.bitmap.height
+
+    // Loop over each new image segment:
+    var i = 0
+    var j = 0
+    asyncLoop(size, i, () => {
+      asyncLoop(size, j, () => {
+
+        var jigsawPiece = new Jimp(width/size, height/size, (jigsawPiece) => {
+          // colour each pixel using the parametisation
+          // set each image width and height depending on the properties file
+          // add extra pixels to the width and heigh depending on where the tabs
+          // are
+        })
+
+      }, () => {
+        // executes when above is completed
+      })
+    }, () => {
+      // executes when above is completed
+    })
+    callback(null)
+  })
 }
 
 function createImage() {
