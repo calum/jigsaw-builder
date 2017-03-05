@@ -11,11 +11,11 @@ function asyncLoop(max, iteration, func, callback) {
   }).then( () => {
     iteration++
     if (iteration < max) {
-      asyncLoop(max, iteration, func, callback)
+      return asyncLoop(max, iteration, func, callback)
     }
     return callback(null)
   }).catch( (err) => {
-    callback(err)
+    return callback(err)
   })
 }
 

@@ -45,11 +45,18 @@ function build(size, imageLocation, destinationDir, callback) {
     asyncLoop(size, 0, (i, next) => {
       asyncLoop(size, 0, (j, next) => {
 
-        // Determine if this piece has tabs sticking out
-        var rightTab = (properties[''+i+j].right == 1) ? 1 : 0
-        var leftTab = (properties[''+i+j].left == 1) ? 1 : 0
-        var topTab = (properties[''+i+j].top == 1) ? 1 : 0
-        var bottomTab = (properties[''+i+j].bottom == 1) ? 1 : 0
+        // determine the types of tabs for this piece:
+        // ( -1 means inner tab, +1 means outer tab, 0 means no tab)
+        var right = properties[''+i+j].right
+        var left = properties[''+i+j].left
+        var top = properties[''+i+j].top
+        var bottom = properties[''+i+j].bottom
+
+        // Determine which tabs are sticking out
+        var rightTab = (right == 1) ? 1 : 0
+        var leftTab = (left == 1) ? 1 : 0
+        var topTab = (top == 1) ? 1 : 0
+        var bottomTab = (bottom == 1) ? 1 : 0
 
         // Add 1/6th the relative size for each tab that sticks out
         var widthOfPiece = Math.round((width/size)*(1+((rightTab+leftTab)/6)))
@@ -68,7 +75,9 @@ function build(size, imageLocation, destinationDir, callback) {
           for (x = 0; x < widthOfPiece; x++) {
             for (y =0; y < heightOfPiece; y++) {
 
-              jigsawPiece.setPixelColor(image.getPixelColor(x, y), x, y)
+              if (shouldPixelBeColoured(x,y, properties[''+i+j], width, height, i, j, size)) {
+                jigsawPiece.setPixelColor(image.getPixelColor(x+(width/height)*j, y+(width/height)*i), x, y)
+              }
 
             }
           }
@@ -80,7 +89,7 @@ function build(size, imageLocation, destinationDir, callback) {
 
       }, (err) => {
         // executes when above is completed
-        if (err) next(err)
+        if (err) return callback(err)
         next()
       })
     }, (err) => {
@@ -88,23 +97,6 @@ function build(size, imageLocation, destinationDir, callback) {
       if (err) callback(err)
       callback(null)
     })
-  })
-}
-
-function createImage() {
-  var image = new Jimp(256,256, (err, image) => {
-    if (err)
-      return console.error(err)
-
-    var i
-    var j
-    for (i=0; i<256; i++) {
-      for (j=0; j<256; j++) {
-        image.setPixelColor(Jimp.rgbaToInt(i%255,j%255,(i+j)%255,255), i, j)
-      }
-    }
-
-    image.write('./examples/test.png')
   })
 }
 
@@ -194,6 +186,76 @@ function generatePropertiesObj(size) {
   }
 
   return properties
+}
+
+/**
+* This function tests whether or not
+* the given pixel (x, y) should be coloured.
+*
+* i.e. checks if the pixel is within the boundary
+* of the tab functions
+*
+* Returns true if the pixel is to be coloured
+* and false if it should be left empty
+**/
+var tabFunction = {
+  // This function at it's current form plots a top tab
+  paramX: function(t) {
+    var x = 1+t + (1/4)*Math.sin(4*Math.PI*t)
+    return x
+  },
+  paramY: function(t) {
+    var y = (1/4)*(Math.cos(2*Math.PI*t)-1)
+    return y
+  }
+}
+function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
+  // convert the coordinates to a piece of size 3*3
+  // where the tab is of width 1 unit
+  var relX = 3*(x - (width/size)*j)/(width/size)
+  var relY = 3*(y - (height/size)*i)/(height/size)
+
+  //console.log('relative coords:')
+  //console.log(relX)
+  //console.log(relY)
+
+  // by default, the pixel should be coloured
+  var colourPixel = true
+
+  // top left corner
+  if (relX < 0 && relY < 1) {
+    return colourPixel = false
+  }
+  if (relX < 1 && relY < 0) {
+    return colourPixel = false
+  }
+
+  // bottom left corner
+  if (relX < 0 && relY > 2) {
+    return colourPixel = false
+  }
+  if (relX <1 && relY > 3) {
+    return colourPixel = false
+  }
+
+  // bottom right corner
+  if (relX > 2 && relY > 3) {
+    return colourPixel = false
+  }
+  if (relX > 3 && relY > 2) {
+    return colourPixel = false
+  }
+
+  // top right corner
+  if (relX > 2 && relY < 0) {
+    return colourPixel = false
+  }
+  if (relX > 3 && relY < 1) {
+    return colourPixel = false
+  }
+
+  // return true
+  return colourPixel
 }
 
 module.exports.build = build

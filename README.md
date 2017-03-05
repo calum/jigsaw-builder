@@ -1,6 +1,10 @@
 # Jig-Saw Builder
 This module is used to build a jig-saw from an image file.
 
+TODO :
+* incorrect pixels are being coloured from getPixelColor(x,y)
+* fix the jig-saw pixel colouring function
+
 ### Note
 This project is still in development
 
