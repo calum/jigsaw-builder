@@ -3,16 +3,19 @@
 **/
 
 function asyncLoop(max, iteration, func, callback) {
-  if (max <= iteration) {
-    return callback(null)
-  }
   new Promise( (fulfill, reject) => {
-    func(iteration, () {
+    func(iteration, (err) => {
+      if (err) reject(err)
       fulfill()
     })
-  }, () => {
+  }).then( () => {
     iteration++
-    asyncLoop(max, iteration, func, callback)
+    if (iteration < max) {
+      asyncLoop(max, iteration, func, callback)
+    }
+    return callback(null)
+  }).catch( (err) => {
+    callback(err)
   })
 }
 

@@ -3,6 +3,25 @@ var fs = require('fs')
 
 var asyncLoop = require('./src/async.js').asyncLoop
 
+/**
+* This is the main method used to generate
+* jig-saws.
+*
+* The parametisation used to create the jig-saw tabs is as follows:
+*   x = t + (1/4)sin(4pi*t),
+*   y = (1/4)(cos(2pi*t)-1),
+*   where 0 < t < 1.
+*
+* Parameters:
+*   - size:
+*       the number of desired pieces (e.g. a size of 8 generates an 8*8 jigsaw)
+*   - imageLocation:
+*       the location of the desired image (e.g. './cats/funnyCat.png')
+*   - destinationDir:
+*       the location where the jig-saw and properties are stored
+*   - callback:
+*       the function to be called upon completion
+**/
 function build(size, imageLocation, destinationDir, callback) {
 
   // create the properties object
@@ -23,46 +42,56 @@ function build(size, imageLocation, destinationDir, callback) {
     var height = image.bitmap.height
 
     // Loop over each new image segment:
-    var i = 0
-    var j = 0
-    asyncLoop(size, i, () => {
-      asyncLoop(size, j, () => {
+    asyncLoop(size, 0, (i, next) => {
+      asyncLoop(size, 0, (j, next) => {
 
-        var jigsawPiece = new Jimp(width/size, height/size, (jigsawPiece) => {
+        // Determine if this piece has tabs sticking out
+        var rightTab = (properties[''+i+j].right == 1) ? 1 : 0
+        var leftTab = (properties[''+i+j].left == 1) ? 1 : 0
+        var topTab = (properties[''+i+j].top == 1) ? 1 : 0
+        var bottomTab = (properties[''+i+j].bottom == 1) ? 1 : 0
+
+        // Add 1/6th the relative size for each tab that sticks out
+        var widthOfPiece = Math.round((width/size)*(1+((rightTab+leftTab)/6)))
+        var heightOfPiece = Math.round((height/size)*(1+((topTab+bottomTab)/6)))
+
+        // Create the jig-saw piece
+        var jigsawPiece = new Jimp(widthOfPiece, heightOfPiece, (err, jigsawPiece) => {
+
+          if (err) {
+            return next(err)
+          }
+
           // colour each pixel using the parametisation
-          // set each image width and height depending on the properties file
-          // add extra pixels to the width and heigh depending on where the tabs
-          // are
+          var x
+          var y
+          for (x = 0; x < widthOfPiece; x++) {
+            for (y =0; y < heightOfPiece; y++) {
+
+              jigsawPiece.setPixelColor(image.getPixelColor(x, y), x, y)
+
+            }
+          }
+
+          // Save these piece to file:
+          jigsawPiece.write(destinationDir+''+i+j+'.png')
+          next()
         })
 
-      }, () => {
+      }, (err) => {
         // executes when above is completed
+        if (err) next(err)
+        next()
       })
-    }, () => {
+    }, (err) => {
       // executes when above is completed
+      if (err) callback(err)
+      callback(null)
     })
-    callback(null)
   })
 }
 
 function createImage() {
-  var image = new Jimp(256,256, (err, image) => {
-    if (err)
-      return console.error(err)
-
-    var i
-    var j
-    for (i=0; i<256; i++) {
-      for (j=0; j<256; j++) {
-        image.setPixelColor(Jimp.rgbaToInt(i%255,j%255,(i+j)%255,255), i, j)
-      }
-    }
-
-    image.write('./examples/test.png')
-  })
-}
-
-function createOutline() {
   var image = new Jimp(256,256, (err, image) => {
     if (err)
       return console.error(err)
