@@ -197,6 +197,11 @@ function generatePropertiesObj(size) {
       properties[''+i+j].x = (j+0.5+(right-left)/6)/size
       properties[''+i+j].y = (i+0.5+(bottom-top)/6)/size
 
+      properties[''+i+j].topLeftCorner = {
+        x: (j-(left/12))/size,
+        y: (i-(top/12))/size
+      }
+
     }
 
   }
