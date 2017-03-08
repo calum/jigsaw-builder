@@ -75,8 +75,25 @@ function build(size, imageLocation, destinationDir, callback) {
           for (x = 0; x < widthOfPiece; x++) {
             for (y =0; y < heightOfPiece; y++) {
 
-              if (shouldPixelBeColoured(x,y, properties[''+i+j], width, height, i, j, size)) {
-                jigsawPiece.setPixelColor(image.getPixelColor(x+(width/height)*j, y+(width/height)*i), x, y)
+
+              // convert the coordinates to a piece of size 3*3
+              // where the tab is of width 1 unit
+              var relX = 3*(x - (width/size)*j)/(width/size)
+              var relY = 3*(y - (height/size)*i)/(height/size)
+
+
+              var pixelX = x + (width/size)*j - leftTab*(width/size)/6
+              var pixelY = y + (height/size)*i - topTab*(width/size)/6
+              if (shouldPixelBeColoured(pixelX, pixelY, properties[''+i+j], width, height, i, j, size)) {
+                try {
+                  jigsawPiece.setPixelColor(image.getPixelColor( pixelX, pixelY), x, y)
+                } catch (err) {
+                  console.log('image.getPixelColor( '+pixelX+', '+pixelY+')')
+                  console.log('piece: '+i+j)
+                  console.log('(x,y) = ('+x+', '+y+')')
+                  console.log('width and height: '+width+', '+height)
+                  return next(err)
+                }
               }
 
             }
