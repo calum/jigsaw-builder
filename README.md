@@ -1,4 +1,4 @@
-# Jig-Saw Builder
+# Jigsaw Builder
 This module is used to build a jig-saw from an image file.
 
 Pull requests are welcome.
