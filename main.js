@@ -24,22 +24,28 @@ var asyncLoop = require('./src/async.js').asyncLoop
 **/
 function build(size, imageLocation, destinationDir, callback) {
 
-  // create the properties object
-  var properties = generatePropertiesObj(size)
-
-  // write the properties file
-  fs.writeFile(
-    destinationDir+'properties.json',
-    JSON.stringify(properties,null,2),
-    'utf-8'
-  );
-
   // load the image
   Jimp.read(imageLocation, function (err, image) {
     if (err) callback(err)
 
     var width = image.bitmap.width
     var height = image.bitmap.height
+
+    // create the properties object
+    var properties = generatePropertiesObj(size)
+    properties.overview = {
+      height: height,
+      width: width,
+      horizontalPieces: size,
+      verticalPieces: size
+    }
+
+    // write the properties file
+    fs.writeFile(
+      destinationDir+'properties.json',
+      JSON.stringify(properties,null,2),
+      'utf-8'
+    );
 
     // Loop over each new image segment:
     asyncLoop(size, 0, (i, next) => {
@@ -231,7 +237,7 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   var topTab = (properties.top == 1) ? 1 : 0
   var bottomTab = (properties.bottom == 1) ? 1 : 0
   */
-  
+
   // convert each jig-saw piece into a square 3 units wide and 3 tall
   var relX = 3*(x - (width/size)*j)/(width/size)
   var relY = 3*(y - (height/size)*i)/(height/size)
