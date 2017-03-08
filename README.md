@@ -1,13 +1,6 @@
 # Jig-Saw Builder
 This module is used to build a jig-saw from an image file.
 
-TODO :
-* incorrect pixels are being coloured from getPixelColor(x,y)
-* fix the jig-saw pixel colouring function
-
-### Note
-This project is still in development
-
 ## Example Usage
 ```js
 var jigsawBuilder = require('jigsaw-builder')
@@ -31,7 +24,7 @@ jigsawBuilder.build(8, './assets/cat.png', './assets/jigsaw/cat/', function (err
 ```
 
 ## Output
-The `.build` function, when called with the first argument `n`, produces `n*n` image files and a `properties.json` file. The `properties.json` file stores the actual coordinates of each jig-saw piece. This is needed because the tabs of each jig-saw piece stick out slightly and alter the size of the image size.
+The `.build` function, when called with the first argument `n`, produces `n*n` image files and a `properties.json` file. The `properties.json` file stores the relative coordinates of each jig-saw piece. This is needed because the tabs of each jig-saw piece stick out slightly.
 
 ## Function Used
 To calculate the edges of the jig-saw pieces, this module uses the parametric equation
