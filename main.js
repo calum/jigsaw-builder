@@ -75,13 +75,6 @@ function build(size, imageLocation, destinationDir, callback) {
           for (x = 0; x < widthOfPiece; x++) {
             for (y =0; y < heightOfPiece; y++) {
 
-
-              // convert the coordinates to a piece of size 3*3
-              // where the tab is of width 1 unit
-              var relX = 3*(x - (width/size)*j)/(width/size)
-              var relY = 3*(y - (height/size)*i)/(height/size)
-
-
               var pixelX = x + (width/size)*j - leftTab*(width/size)/6
               var pixelY = y + (height/size)*i - topTab*(width/size)/6
               if (shouldPixelBeColoured(pixelX, pixelY, properties[''+i+j], width, height, i, j, size)) {
@@ -224,17 +217,24 @@ var tabFunction = {
   paramY: function(t) {
     var y = (1/4)*(Math.cos(2*Math.PI*t)-1)
     return y
+  },
+  inverse: function(y) {
+    var t1 = (Math.acos((4*y)+1))/(2*Math.PI)
+    var t2 = 1 - t1
+    return [t1, t2]
   }
 }
 function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
-  // convert the coordinates to a piece of size 3*3
-  // where the tab is of width 1 unit
+  /*
+  var rightTab = (properties.right == 1) ? 1 : 0
+  var leftTab = (properties.left == 1) ? 1 : 0
+  var topTab = (properties.top == 1) ? 1 : 0
+  var bottomTab = (properties.bottom == 1) ? 1 : 0
+  */
+  
+  // convert each jig-saw piece into a square 3 units wide and 3 tall
   var relX = 3*(x - (width/size)*j)/(width/size)
   var relY = 3*(y - (height/size)*i)/(height/size)
-
-  //console.log('relative coords:')
-  //console.log(relX)
-  //console.log(relY)
 
   // by default, the pixel should be coloured
   var colourPixel = true
@@ -270,6 +270,117 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   if (relX > 3 && relY < 1) {
     return colourPixel = false
   }
+
+  /**
+  * Top tab out
+  **/
+  if (relX >= 1 && relX <= 2 && relY <= 0) {
+    if (relY < -0.5) {
+      return colourPixel = false
+    }
+    var t = tabFunction.inverse(relY)
+
+    var minX = tabFunction.paramX(t[0])
+    var maxX = tabFunction.paramX(t[1])
+    if (relX < minX || relX > maxX) {
+      return colourPixel = false
+    }
+  }
+  /**
+  * Top tab in
+  **/
+  if (properties.top == -1 && relX >= 1 && relX <= 2 && relY >= 0 && relY <= 0.5) {
+
+    var t = tabFunction.inverse(-relY)
+
+    var minX = tabFunction.paramX(t[0])
+    var maxX = tabFunction.paramX(t[1])
+    if (relX > minX && relX < maxX) {
+      return colourPixel = false
+    }
+  }
+
+  /**
+  * Bottom tab out
+  **/
+  if (relX >= 1 && relX <= 2 && relY >= 3) {
+
+    var t = tabFunction.inverse(-relY+3)
+
+    var minX = tabFunction.paramX(t[0])
+    var maxX = tabFunction.paramX(t[1])
+    if (relX < minX || relX > maxX) {
+      return colourPixel = false
+    }
+  }
+  /**
+  * Bottom tab in
+  **/
+  if (properties.bottom == -1 && relX >= 1 && relX <= 2 && relY >= 2.5 && relY <= 3) {
+
+    var t = tabFunction.inverse(relY-3)
+
+    var minX = tabFunction.paramX(t[0])
+    var maxX = tabFunction.paramX(t[1])
+    if (relX > minX && relX < maxX) {
+      return colourPixel = false
+    }
+  }
+
+  /**
+  * Left tab out
+  **/
+  if (relX <= 0 && relY >= 1 && relY <= 2) {
+
+    var t = tabFunction.inverse(relX)
+
+    var minY = tabFunction.paramX(t[0])
+    var maxY = tabFunction.paramX(t[1])
+    if (relY < minY || relY > maxY) {
+      return colourPixel = false
+    }
+  }
+  /**
+  * Left tab in
+  **/
+  if (properties.left == -1 && relX >= 0 && relX <= 0.5 && relY >= 1 && relY <= 2) {
+
+    var t = tabFunction.inverse(-relX)
+
+    var minY = tabFunction.paramX(t[0])
+    var maxY = tabFunction.paramX(t[1])
+    if (relY > minY && relY < maxY) {
+      return colourPixel = false
+    }
+  }
+
+  /**
+  * Right tab out
+  **/
+  if (relX >= 3 && relY >= 1 && relY <= 2) {
+
+    var t = tabFunction.inverse(-relX+3)
+
+    var minY = tabFunction.paramX(t[0])
+    var maxY = tabFunction.paramX(t[1])
+    if (relY < minY || relY > maxY) {
+      return colourPixel = false
+    }
+  }
+  /**
+  * Right tab in
+  **/
+  if (properties.right == -1 && relX >= 2.5 && relX <= 3 && relY >= 1 && relY <= 2) {
+
+    var t = tabFunction.inverse(relX-3)
+
+    var minY = tabFunction.paramX(t[0])
+    var maxY = tabFunction.paramX(t[1])
+    if (relY > minY && relY < maxY) {
+      return colourPixel = false
+    }
+  }
+
 
   // return true
   return colourPixel
