@@ -1,6 +1,7 @@
 var build = require('../main.js').build
 
-build(2, './examples/linux.png', './examples/jigsaw/', function (err) {
+// To run this test, add a .png image to the examples directory
+build(8, './examples/test.png', './examples/jigsaw/', function (err) {
   console.log('Finished with error: ')
   console.log(err)
 })
