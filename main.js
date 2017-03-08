@@ -194,8 +194,8 @@ function generatePropertiesObj(size) {
       // but we need to adjust for the size of
       // the tabs which alter the dimensions of
       // the piece.
-      properties[''+i+j].x = (j+0.5)/size + ((right - left)/2)/12
-      properties[''+i+j].y = (i+0.5)/size + ((bottom - top)/2)/12
+      properties[''+i+j].x = (j+0.5+(right-left)/6)/size
+      properties[''+i+j].y = (i+0.5+(bottom-top)/6)/size
 
     }
 
