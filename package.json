@@ -1,7 +1,7 @@
 {
   "name": "jigsaw-builder",
-  "version": "1.1.5",
-  "description": "Takes an image file and converts it into jig-saw pieces.",
+  "version": "1.1.7",
+  "description": "Takes an image file and converts it into jigsaw pieces.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
