@@ -1,6 +1,6 @@
 {
   "name": "jigsaw-builder",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Takes an image file and converts it into jig-saw pieces.",
   "main": "main.js",
   "scripts": {
