@@ -1,7 +1,5 @@
 # Jigsaw Builder
-This module is used to build a jig-saw from an image file. It was developed to be used in a [jigsaw game](https://github.com/CalumForsterDev/multiplayer-puzzle-game).
-
-Pull requests are welcome.
+This module is used to build a jigsaw from an image file. It was developed to be used in a [jigsaw game](https://github.com/CalumForsterDev/multiplayer-puzzle-game).
 
 ## Give it a quick try
 ```sh
