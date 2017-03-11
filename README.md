@@ -26,7 +26,7 @@ Call it `penguin.png` and save it in your example directory with your `package.j
 
 Then create an `app.js` file to build the jigsaw:
 ```js
-var build = require('../main.js').build
+var build = require('jigsaw-builder').build
 
 // To run this test, add a .png image to the examples directory
 build(8, './penguin.png', './jigsaw/', function (err) {
