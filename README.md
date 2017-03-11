@@ -46,7 +46,7 @@ $ node app.js
 
 Then you should see this in your `jigsaw/` directory:
 
-<img src="./examples/screenshot.png" width="600">
+<img src="https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/screenshot.png" width="600">
 
 Now you can use these on pieces on your website or app. Have fun!
 
