@@ -65,7 +65,7 @@ var jigsawBuilder = require('jigsaw-builder')
 * files to be output to.
 * The fourth argument is the callback.
 **/
-jigsawBuilder.build(8, './assets/cat.png', './assets/jigsaw/cat/', function (err) => {
+jigsawBuilder.build(8, './assets/penguin.png', './assets/jigsaw/penguin/', function (err) => {
   if (err) {
     console.error(err)
   }
@@ -73,7 +73,7 @@ jigsawBuilder.build(8, './assets/cat.png', './assets/jigsaw/cat/', function (err
 ```
 
 ### Output
-The `.build` function, when called with the first argument `n`, produces `n*n` image files and a `properties.json` file. The `properties.json` file stores the relative coordinates of each jig-saw piece. This is needed because the tabs of each jig-saw piece stick out slightly.
+The `.build` function, when called with the first argument `n`, produces `n*n` image files and a `properties.json` file. The `properties.json` file stores the relative coordinates of each jig-saw piece. This is needed because the tabs of each jig-saw piece stick out slightly, meaning the jigsaw piece's actual centre is shifted away from where you'd want to place it. This is hard to explain but a better explanation is being written and will be published soon.
 
 ### Function Used
 To calculate the edges of the jig-saw pieces, this module uses the parametric equation
@@ -82,6 +82,7 @@ x = t + (1/4)sin(4pi*t),
 y = (1/4)(cos(2pi*t)-1),
 where 0 < t < 1.
 ```
+More shapes and sizes will be added in future releases!
 
 ## Development
 Feel free to contribute to the github project. Create issues and pull requests if you like. This package still has a long way to go! Thank you for any help.
