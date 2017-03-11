@@ -18,9 +18,9 @@ $ npm install jigsaw-builder --save
 # create directory for jigsaw pieces
 $ mkdir jigsaw
 ```
-Move a test image into your project folder. Try [this image](https://cdn.pixabay.com/photo/2016/08/28/13/31/explorer-1625959_640.png):
+Move a test image into your project folder. Try [this image](https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/penguin.png):
 
-<img src="https://cdn.pixabay.com/photo/2016/08/28/13/31/explorer-1625959_640.png" width="200">
+<img src="https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/penguin.png" width="200">
 
 Call it `penguin.png` and save it in your example directory with your `package.json` file.
 
