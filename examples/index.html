@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title> Jigsaw-Builder test page </title>
+
+  </head>
+
+  <body>
+
+    <canvas id="canvas"></canvas>
+
+  </body>
+
+  <script>
+    // Get the Canvas element
+    var canvas = document.getElementById('canvas');
+    // Get the context for the canvas:
+    var ctx = canvas.getContext('2d');
+
+    // get the main image example for size
+    var image = new Image();
+    image.src = 'example.png';
+
+    // set the canvas width and height
+    canvas.width = image.width;
+    canvas.height= image.height;
+
+    // create the jigsaw object to hold each piece
+    var jigsaw = {};
+
+    // get the url of this window
+    var url = window.location.href.replace('index.html','jigsaw/');
+
+    // Request the properties.json file
+    var request = new Request(url+'properties.json');
+    fetch(request).then( function(response) {
+
+      // return the JSON of this response
+      return response.json();
+
+    }).then( function(response) {
+
+      // save the properties file
+      var properties = response;
+
+      // add each jigsaw piece to test they fit together correctly
+      for (j=0; j<8; j++) {
+        for (i=0; i<8; i++) {
+
+          // this will hold the jigsaw piece
+          var piece = new Image();
+
+          // set the x and y coordinates
+          var x = properties[''+i+j].topLeftCorner.x*canvas.width;
+          var y = properties[''+i+j].topLeftCorner.y*canvas.height;
+
+          // save this piece to the jigsaw object
+          jigsaw[''+i+j] = {image: piece, position: {x:x,y:y}};
+
+          // when the piece is loaded, we can draw it onto the canvas
+          piece.onload = function(event) {
+            // get the image from the event
+            var image = event.target;
+            image.draggable = true;
+
+            // find the coordinates for this piece
+            var jigsawpiece = Object.keys(jigsaw).filter(x => jigsaw[x].image == image);
+            var position = jigsaw[jigsawpiece].position;
+
+            // draw the piece onto the canvas
+            ctx.drawImage(image, position.x, position.y);
+          }
+
+          // load the image
+          piece.src = 'jigsaw/'+i+j+'.png';
+
+        }
+      }
+    });
+
+  </script>
+
+</html>

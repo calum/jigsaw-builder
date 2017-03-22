@@ -2,53 +2,33 @@
 This module is used to build a jigsaw from an image file. It was developed to be used in a [jigsaw game](https://github.com/CalumForsterDev/multiplayer-puzzle-game).
 
 ## Give it a quick try
+In this 5 minute tutorial you will create a 64 piece jigsaw and then see the jigsaw loaded into a canvas element in your browser.
 ```sh
-# create working directory
-$ mkdir example
-$ cd example
+# clone the jigsaw-builder
+$ git clone https://github.com/CalumForsterDev/jigsaw-builder.git
+$ cd jigsaw-builder/
 
-# create package.json file:
-$ npm init
+# install dependencies
+$ npm install
 
-# install jigsaw-builder
-$ npm install jigsaw-builder --save
+# enter the examples folder
+$ cd examples/
 
-# create directory for jigsaw pieces
-$ mkdir jigsaw
+# run the test
+$ node test.js
 ```
-Move a test image into your project folder. Try [this image](https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/penguin.png):
+
+This will create a jigsaw from the `example.png` image.
 
 <img src="https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/penguin.png" width="200">
 
-Call it `penguin.png` and save it in your example directory with your `package.json` file.
-
-Then create an `app.js` file to build the jigsaw:
-```js
-var build = require('jigsaw-builder').build
-
-// To run this test, add a .png image to the examples directory
-build(8, './penguin.png', './jigsaw/', function (err) {
-  if (err) {
-    console.log(err)
-  }
-  console.log('finished creating jigsaw!')
-})
-```
-
-Save the `app.js` file in the same directory as the `package.json` file (`example/`).
-
-Then run it!
-```sh
-$ node app.js
-```
-
-Then you should see this in your `jigsaw/` directory:
+You should see this in your `jigsaw/` directory:
 
 <img src="https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/screenshot.png" width="600">
 
-Now you can use these on pieces on your website or app. Have fun!
+Open the `index.html` file in your browser to see how it all fits together!
 
-
+You can now use these pieces on your website or app. Have fun!
 
 ## Documentation
 ```js
@@ -65,10 +45,11 @@ var jigsawBuilder = require('jigsaw-builder')
 * files to be output to.
 * The fourth argument is the callback.
 **/
-jigsawBuilder.build(8, './assets/penguin.png', './assets/jigsaw/penguin/', function (err) => {
+jigsawBuilder.build(8, './assets/penguin.png', './assets/jigsaw/', function (err) => {
   if (err) {
-    console.error(err)
+    return console.error(err)
   }
+  console.log('done!')
 })
 ```
 
