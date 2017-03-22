@@ -20,7 +20,7 @@ $ node test.js
 
 This will create a jigsaw from the `example.png` image.
 
-<img src="https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/penguin.png" width="200">
+<img src="https://raw.githubusercontent.com/CalumForsterDev/jigsaw-builder/master/examples/example.png" width="200">
 
 You should see this in your `jigsaw/` directory:
 
