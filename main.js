@@ -65,11 +65,11 @@ function build(size, imageLocation, destinationDir, callback) {
         var bottomTab = (bottom == 1) ? 1 : 0
 
         // Add 1/6th the relative size for each tab that sticks out
-        var widthOfPiece = Math.round((width/size)*(1+((rightTab+leftTab)/6)))
-        var heightOfPiece = Math.round((height/size)*(1+((topTab+bottomTab)/6)))
+        var widthOfPiece = ((width/size)*(1+((rightTab+leftTab)/6)))
+        var heightOfPiece = ((height/size)*(1+((topTab+bottomTab)/6)))
 
         // Create the jig-saw piece
-        var jigsawPiece = new Jimp(widthOfPiece, heightOfPiece, (err, jigsawPiece) => {
+        var jigsawPiece = new Jimp(Math.ceil(widthOfPiece), Math.ceil(heightOfPiece), (err, jigsawPiece) => {
 
           if (err) {
             return next(err)
@@ -82,10 +82,10 @@ function build(size, imageLocation, destinationDir, callback) {
             for (y =0; y < heightOfPiece; y++) {
 
               var pixelX = x + (width/size)*j - leftTab*(width/size)/6
-              var pixelY = y + (height/size)*i - topTab*(width/size)/6
+              var pixelY = y + (height/size)*i - topTab*(height/size)/6
               if (shouldPixelBeColoured(pixelX, pixelY, properties[''+i+j], width, height, i, j, size)) {
                 try {
-                  jigsawPiece.setPixelColor(image.getPixelColor( pixelX, pixelY), x, y)
+                  jigsawPiece.setPixelColor(image.getPixelColor( Math.floor(pixelX), Math.floor(pixelY)), x, y)
                 } catch (err) {
                   console.log('image.getPixelColor( '+pixelX+', '+pixelY+')')
                   console.log('piece: '+i+j)
@@ -243,9 +243,11 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   var bottomTab = (properties.bottom == 1) ? 1 : 0
   */
 
-  // convert each jig-saw piece into a square 3 units wide and 3 tall
+  // convert each jigsaw piece into a square 3 units wide and 3 tall
   var relX = 3*(x - (width/size)*j)/(width/size)
   var relY = 3*(y - (height/size)*i)/(height/size)
+  // width and height are referring to the whole image and not the individual
+  // jigsaw piece (width/height is the jigsaw piece's width)
 
   // by default, the pixel should be coloured
   var colourPixel = true

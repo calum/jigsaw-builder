@@ -23,7 +23,7 @@
 
     // get the main image example for size
     var image = new Image();
-    image.src = 'example.png';
+    image.src = 'loadingpage.png';
 
     // set the canvas width and height
     canvas.width = image.width;
@@ -48,8 +48,9 @@
       var properties = response;
 
       // add each jigsaw piece to test they fit together correctly
-      for (j=0; j<8; j++) {
-        for (i=0; i<8; i++) {
+      var size = 8;
+      for (j=0; j<size; j++) {
+        for (i=0; i<size; i++) {
 
           // this will hold the jigsaw piece
           var piece = new Image();
