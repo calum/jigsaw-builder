@@ -1,6 +1,6 @@
 {
   "name": "jigsaw-builder",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Takes an image file and converts it into jigsaw pieces.",
   "main": "main.js",
   "scripts": {
@@ -14,6 +14,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CalumForsterDev/jigsaw-builder.git"
+    "url": "https://github.com/calum/jigsaw-builder.git"
   }
 }
