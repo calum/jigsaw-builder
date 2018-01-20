@@ -1,6 +1,6 @@
 {
   "name": "jigsaw-builder",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "Takes an image file and converts it into jigsaw pieces.",
   "main": "main.js",
   "scripts": {
@@ -8,6 +8,7 @@
   },
   "author": "Calum Forster",
   "license": "ISC",
+  "tags": ["jigsaw", "builder", "generator"],
   "dependencies": {
     "jimp": "^0.2.27"
   },

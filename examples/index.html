@@ -11,7 +11,7 @@
 
   <body>
 
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" onmousedown="dragStart(event)" onmouseup="dragEnd(event)" onmousemove="drag(event)" draggable=true></canvas>
 
   </body>
 
@@ -23,7 +23,7 @@
 
     // get the main image example for size
     var image = new Image();
-    image.src = 'loadingpage.png';
+    image.src = window.location.href.replace('index.html', 'example.png');
 
     // set the canvas width and height
     canvas.width = image.width;
@@ -66,7 +66,6 @@
           piece.onload = function(event) {
             // get the image from the event
             var image = event.target;
-            image.draggable = true;
 
             // find the coordinates for this piece
             var jigsawpiece = Object.keys(jigsaw).filter(x => jigsaw[x].image == image);
@@ -82,6 +81,51 @@
         }
       }
     });
+
+    // add animation
+    setInterval(function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      Object.keys(jigsaw).forEach(function(index) {
+        var piece = jigsaw[index];
+        ctx.drawImage(piece.image, piece.position.x, piece.position.y);
+      });
+    }, 100);
+
+    // Add dragging ability
+    var dragging = false;
+    var moving = null;
+    var difference = {
+      x: 0,
+      y: 0
+    }
+    function dragStart(event) {
+      // find which piece was clicked
+      Object.keys(jigsaw).forEach(function(index) {
+        var piece = jigsaw[index];
+        if (event.clientX - piece.position.x < piece.image.width &&
+            event.clientY - piece.position.y < piece.image.height &&
+            event.clientX - piece.position.x > 0 &&
+            event.clientY - piece.position.y > 0
+        ) {
+            moving = piece;
+            dragging = true;
+            difference.x = piece.position.x - event.clientX;
+            difference.y = piece.position.y - event.clientY;
+        }
+      })
+    }
+    function dragEnd(event) {
+      dragging = false;
+      moving = null;
+    }
+    function drag(event) {
+      if (!dragging || moving == null) {
+        return;
+      }
+      moving.position.x = event.clientX + difference.x;
+      moving.position.y = event.clientY + difference.y;
+    }
 
   </script>
 
