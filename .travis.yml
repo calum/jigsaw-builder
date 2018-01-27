@@ -1,0 +1,8 @@
+deploy:
+  provider: npm
+  email: calumforster@live.co.uk
+  api_key:
+    secure: Sy4m/VTXDxSNLClQe6Sp/FIlXIkb15Y7gW/UoYY3wm0ktTDr+zAu2qfhJ+ZdRdh/nEa7T8vybpw/cQ7OOCAjzkUJy6xVvGPjn1bMeYrmm96S8HJeqCQkC4t5BR/gPwI9RF8FFx2aYkyfutdOKpsW4I84UsiedYM9ABfexY+oA2Bk285rRFkktJEIAf+RSx/m3o27oWNauCS2mY+OiOdwbJngI8puA/Rq7ALNBAWD2MBoN8tvI1EQYssvLutA9R0r1wQsXLGbq6QkjmtYmfGXA8nHiFBGTeYKJpdFxeHckDbunndICLv2g/weUBI5wzSYCFlCpeGrrDiKgi2k8wcLuC+xx67RwkrMC2m8vpkg18uCBZQ2aelLKW58sZUEs/LtjBIDDUKfqYvCwpafg9MaS3ob5ZEgbLhe7jiCDf6RwTUTgevOQwYIEiwcjoY+/TtaiW5XqymXGhYfkZ/aThAI0GYWWV1P74c1AsVfvF2MVbmZGjBcByZRuQCGpgD8Eb3BPaS9TWjNJB+H1IMOEdFz8iOEnlqq0tNk2eCRc4ZZ5rvwp3xvX11zg11KtFAAV3YUy17OwDE7vnnXJ1YIwlQdyn1yozmbTN+gdBfEk1dvLCu8J5yVXa4jJ1Q2FtU27BVCdidGz305WRlMK7R58AtTWmYlUlPGmKlaNtVtGE6W0e4=
+  on:
+    tags: true
+    repo: calum/jigsaw-builder
