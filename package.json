@@ -4,7 +4,7 @@
   "description": "Takes an image file and converts it into jigsaw pieces.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No tests yet\""
   },
   "author": "Calum Forster",
   "license": "ISC",
