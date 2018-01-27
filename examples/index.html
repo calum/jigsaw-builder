@@ -5,6 +5,8 @@
 
     <meta charset="utf-8">
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
     <title> Jigsaw-Builder test page </title>
 
   </head>
@@ -21,31 +23,28 @@
     // Get the context for the canvas:
     var ctx = canvas.getContext('2d');
 
-    // get the main image example for size
-    var image = new Image();
-    image.src = window.location.href.replace('index.html', 'example.png');
-
-    // set the canvas width and height
-    canvas.width = image.width;
-    canvas.height= image.height;
+    var max_width = 1024;
+    var max_height = 768;
+    var scale = 1;
 
     // create the jigsaw object to hold each piece
     var jigsaw = {};
 
-    // get the url of this window
-    var url = window.location.href.replace('index.html','jigsaw/');
+    // get the properties file:
+    $.getJSON( "jigsaw/properties.json", function( data ) {
+      var properties = data;
+      var overview = properties.overview;
 
-    // Request the properties.json file
-    var request = new Request(url+'properties.json');
-    fetch(request).then( function(response) {
+      // set the canvas width and height
+      canvas.width = overview.width;
+      canvas.height= overview.height;
 
-      // return the JSON of this response
-      return response.json();
-
-    }).then( function(response) {
-
-      // save the properties file
-      var properties = response;
+      if (canvas.width*scale > max_width) {
+        scale = max_width/canvas.width;
+      }
+      if (canvas.height*scale > max_height) {
+        scale = max_height/canvas.heigth;
+      }
 
       // add each jigsaw piece to test they fit together correctly
       var size = 8;
@@ -56,8 +55,8 @@
           var piece = new Image();
 
           // set the x and y coordinates
-          var x = properties[''+i+j].topLeftCorner.x*canvas.width;
-          var y = properties[''+i+j].topLeftCorner.y*canvas.height;
+          var x = properties[''+i+j].topLeftCorner.x*canvas.width*scale;
+          var y = properties[''+i+j].topLeftCorner.y*canvas.height*scale;
 
           // save this piece to the jigsaw object
           jigsaw[''+i+j] = {image: piece, position: {x:x,y:y}};
@@ -71,26 +70,32 @@
             var jigsawpiece = Object.keys(jigsaw).filter(x => jigsaw[x].image == image);
             var position = jigsaw[jigsawpiece].position;
 
+            jigsaw[jigsawpiece].image.width = image.width*scale;
+            jigsaw[jigsawpiece].image.height = image.height*scale;
+
+            var width = jigsaw[jigsawpiece].image.width;
+            var height = jigsaw[jigsawpiece].image.height;
+
             // draw the piece onto the canvas
-            ctx.drawImage(image, position.x, position.y);
+            ctx.drawImage(image, position.x, position.y, width, height);
           }
 
           // load the image
           piece.src = 'jigsaw/'+i+j+'.png';
-
         }
       }
+
+      // add animation
+      setInterval(function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        Object.keys(jigsaw).forEach(function(index) {
+          var piece = jigsaw[index];
+          ctx.drawImage(piece.image, piece.position.x, piece.position.y,
+            piece.image.width, piece.image.height);
+        });
+      }, 100);
     });
-
-    // add animation
-    setInterval(function() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      Object.keys(jigsaw).forEach(function(index) {
-        var piece = jigsaw[index];
-        ctx.drawImage(piece.image, piece.position.x, piece.position.y);
-      });
-    }, 100);
 
     // Add dragging ability
     var dragging = false;
@@ -104,14 +109,14 @@
       Object.keys(jigsaw).forEach(function(index) {
         var piece = jigsaw[index];
         if (event.clientX - piece.position.x < piece.image.width &&
-            event.clientY - piece.position.y < piece.image.height &&
-            event.clientX - piece.position.x > 0 &&
-            event.clientY - piece.position.y > 0
+        event.clientY - piece.position.y < piece.image.height &&
+        event.clientX - piece.position.x > 0 &&
+        event.clientY - piece.position.y > 0
         ) {
-            moving = piece;
-            dragging = true;
-            difference.x = piece.position.x - event.clientX;
-            difference.y = piece.position.y - event.clientY;
+          moving = piece;
+          dragging = true;
+          difference.x = piece.position.x - event.clientX;
+          difference.y = piece.position.y - event.clientY;
         }
       })
     }
@@ -126,7 +131,6 @@
       moving.position.x = event.clientX + difference.x;
       moving.position.y = event.clientY + difference.y;
     }
-
   </script>
 
 </html>

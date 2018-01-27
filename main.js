@@ -25,7 +25,9 @@ var asyncLoop = require('./src/async.js').asyncLoop
 function build(size, imageLocation, destinationDir, callback) {
 
   // make sure the destination directory exists
-  fs.mkdir(destinationDir)
+  fs.mkdir(destinationDir, function(err) {
+    // ignore any errors here
+  })
 
   // load the image
   Jimp.read(imageLocation, function (err, image) {
