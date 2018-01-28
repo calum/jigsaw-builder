@@ -22,4 +22,12 @@ describe('Properties File Tests', function() {
     assert.equal(coordinates.y, (1.5+(1/3))/5, "y coordinate incorrect.")
     assert.deepEqual(coordinates.topLeftCorner, {x: 1/5, y: 1/5}, "Top left cordner was incorrectly calculated.")
   })
+
+  xit('should generate the correct tabs on  middle piece', function() {
+
+  })
+
+  xit('should generate a properties object correctly', function() {
+
+  })
 })
