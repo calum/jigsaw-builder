@@ -1,0 +1,11 @@
+{
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "MY_GLOBAL": true
+  },
+  "esversion": 6,
+  "asi": true,
+  "mocha": true,
+  "node": true
+}
