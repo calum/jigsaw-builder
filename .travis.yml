@@ -7,6 +7,7 @@ cache:
   - node_modules
 install:
   - npm install -g codecov
+  - npm install
 after_script:
   - npm run coverage
   - codecov
