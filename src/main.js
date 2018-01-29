@@ -54,6 +54,10 @@ function build(size, imageLocation, destinationDir, callback) {
       'utf-8'
     );
 
+    // create an array of promises to fulfill when all the pieces
+    // are finished being saved
+    var promises = []
+
     // Loop over each new image segment:
     asyncLoop(size, 0, (i, next) => {
       asyncLoop(size, 0, (j, next) => {
@@ -106,7 +110,13 @@ function build(size, imageLocation, destinationDir, callback) {
           }
 
           // Save these piece to file:
-          jigsawPiece.write(destinationDir+''+i+j+'.png')
+          var promise = new Promise(function(done) {
+            jigsawPiece.write(destinationDir+''+i+j+'.png', () => {
+              done()
+            })
+          })
+
+          promises.push(promise)
           next()
         })
 
@@ -118,7 +128,11 @@ function build(size, imageLocation, destinationDir, callback) {
     }, (err) => {
       // executes when above is completed
       if (err) callback(err)
-      callback(null)
+
+      // wait for the promises to complete:
+      Promise.all(promises).then(() => {
+        callback(null)
+      })
     })
   })
 }
