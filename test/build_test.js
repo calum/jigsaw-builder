@@ -9,6 +9,7 @@ var fs = require('fs')
 var build = jigsawBuilder.build
 
 describe('Jigsaw-Builder tests', function() {
+  this.timeout(3000)
 
   var src = path.join(__dirname, 'test_data/example.png')
   var dest = path.join(__dirname, 'test_data/results/')
