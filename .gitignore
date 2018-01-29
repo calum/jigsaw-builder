@@ -6,3 +6,5 @@ examples/jigsaw/
 coverage
 package-lock.json
 test/test_data/results
+.coverage.lcov
+coverage.lcov
