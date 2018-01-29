@@ -25,13 +25,6 @@ var tabFunction = {
   }
 }
 function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
-  /*
-  var rightTab = (properties.right == 1) ? 1 : 0
-  var leftTab = (properties.left == 1) ? 1 : 0
-  var topTab = (properties.top == 1) ? 1 : 0
-  var bottomTab = (properties.bottom == 1) ? 1 : 0
-  */
-
   // convert each jigsaw piece into a square 3 units wide and 3 tall
   var relX = 3*(x - (width/size)*j)/(width/size)
   var relY = 3*(y - (height/size)*i)/(height/size)
