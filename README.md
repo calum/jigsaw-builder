@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/calum/jigsaw-builder.svg?branch=master)](https://travis-ci.org/calum/jigsaw-builder)
+[![Build Status](https://travis-ci.org/calum/jigsaw-builder.svg?branch=master)](https://travis-ci.org/calum/jigsaw-builder)[![codecov](https://codecov.io/gh/calum/jigsaw-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/calum/jigsaw-builder)[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e67ed250115a4db4b6ea44208a2b2e2f)](https://www.codacy.com/app/calumforster/jigsaw-builder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=calum/jigsaw-builder&amp;utm_campaign=Badge_Grade)
 
 # Jigsaw Builder
 This module is used to build a jigsaw from an image file. It was developed to be used in a jigsaw game.
