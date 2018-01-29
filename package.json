@@ -4,6 +4,7 @@
   "description": "Takes an image file and converts it into jigsaw pieces.",
   "main": "src/main.js",
   "scripts": {
+    "coverage": "./node_modules/.bin/nyc report --reporter=lcov > coverage.lcov",
     "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text mocha"
   },
   "author": "Calum Forster",

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/calum/jigsaw-builder.svg?branch=master)](https://travis-ci.org/calum/jigsaw-builder)
+
 # Jigsaw Builder
 This module is used to build a jigsaw from an image file. It was developed to be used in a jigsaw game.
 
