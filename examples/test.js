@@ -1,4 +1,4 @@
-var build = require('../main.js').build
+var build = require('../').build
 
 var Jimp = require("jimp")
 
