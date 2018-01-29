@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "coverage": "./node_modules/.bin/nyc report --reporter=lcov > coverage.lcov",
-    "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text mocha"
+    "lint": "./node_modules/.bin/jshint src/*.js test/*.js",
+    "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text mocha && npm run lint"
   },
   "author": "Calum Forster",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "url": "https://github.com/calum/jigsaw-builder.git"
   },
   "devDependencies": {
+    "jshint": "^2.9.5",
     "mocha": "^5.0.0",
     "nyc": "^11.4.1"
   }

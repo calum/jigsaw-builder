@@ -27,7 +27,7 @@ var shouldPixelBeColoured = require('./pixels').shouldPixelBeColoured
 function build(size, imageLocation, destinationDir, callback) {
 
   // make sure the destination directory exists
-  fs.mkdir(destinationDir, function(err) {
+  fs.mkdir(destinationDir, function() {
     // ignore any errors here
   })
 
@@ -80,7 +80,7 @@ function build(size, imageLocation, destinationDir, callback) {
         var heightOfPiece = ((height/size)*(1+((topTab+bottomTab)/6)))
 
         // Create the jig-saw piece
-        var jigsawPiece = new Jimp(Math.ceil(widthOfPiece), Math.ceil(heightOfPiece), (err, jigsawPiece) => {
+        new Jimp(Math.ceil(widthOfPiece), Math.ceil(heightOfPiece), (err, jigsawPiece) => {
 
           if (err) {
             return next(err)

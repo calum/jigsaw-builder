@@ -36,49 +36,56 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
 
   // top left corner
   if (relX < 0 && relY < 1) {
-    return colourPixel = false
+    return false
   }
   if (relX < 1 && relY < 0) {
-    return colourPixel = false
+    return false
   }
 
   // bottom left corner
   if (relX < 0 && relY > 2) {
-    return colourPixel = false
+    return false
   }
   if (relX <1 && relY > 3) {
-    return colourPixel = false
+    return false
   }
 
   // bottom right corner
   if (relX > 2 && relY > 3) {
-    return colourPixel = false
+    return false
   }
   if (relX > 3 && relY > 2) {
-    return colourPixel = false
+    return false
   }
 
   // top right corner
   if (relX > 2 && relY < 0) {
-    return colourPixel = false
+    return false
   }
   if (relX > 3 && relY < 1) {
-    return colourPixel = false
+    return false
   }
+
+  // This will hold the values of the tabFunction
+  var t
+  var minX
+  var maxX
+  var minY
+  var maxY
 
   /**
   * Top tab out
   **/
   if (relX >= 1 && relX <= 2 && relY <= 0) {
     if (relY < -0.5) {
-      return colourPixel = false
+      return false
     }
-    var t = tabFunction.inverse(relY)
+    t = tabFunction.inverse(relY)
 
-    var minX = tabFunction.paramX(t[0])
-    var maxX = tabFunction.paramX(t[1])
+    minX = tabFunction.paramX(t[0])
+    maxX = tabFunction.paramX(t[1])
     if (relX < minX || relX > maxX) {
-      return colourPixel = false
+      return false
     }
   }
   /**
@@ -86,12 +93,12 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   **/
   if (properties.top == -1 && relX >= 1 && relX <= 2 && relY >= 0 && relY <= 0.5) {
 
-    var t = tabFunction.inverse(-relY)
+    t = tabFunction.inverse(-relY)
 
-    var minX = tabFunction.paramX(t[0])
-    var maxX = tabFunction.paramX(t[1])
+    minX = tabFunction.paramX(t[0])
+    maxX = tabFunction.paramX(t[1])
     if (relX > minX && relX < maxX) {
-      return colourPixel = false
+      return false
     }
   }
 
@@ -100,12 +107,12 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   **/
   if (relX >= 1 && relX <= 2 && relY >= 3) {
 
-    var t = tabFunction.inverse(-relY+3)
+    t = tabFunction.inverse(-relY+3)
 
-    var minX = tabFunction.paramX(t[0])
-    var maxX = tabFunction.paramX(t[1])
+    minX = tabFunction.paramX(t[0])
+    maxX = tabFunction.paramX(t[1])
     if (relX < minX || relX > maxX) {
-      return colourPixel = false
+      return false
     }
   }
   /**
@@ -113,12 +120,12 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   **/
   if (properties.bottom == -1 && relX >= 1 && relX <= 2 && relY >= 2.5 && relY <= 3) {
 
-    var t = tabFunction.inverse(relY-3)
+    t = tabFunction.inverse(relY-3)
 
-    var minX = tabFunction.paramX(t[0])
-    var maxX = tabFunction.paramX(t[1])
+    minX = tabFunction.paramX(t[0])
+    maxX = tabFunction.paramX(t[1])
     if (relX > minX && relX < maxX) {
-      return colourPixel = false
+      return false
     }
   }
 
@@ -127,12 +134,12 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   **/
   if (relX <= 0 && relY >= 1 && relY <= 2) {
 
-    var t = tabFunction.inverse(relX)
+    t = tabFunction.inverse(relX)
 
-    var minY = tabFunction.paramX(t[0])
-    var maxY = tabFunction.paramX(t[1])
+    minY = tabFunction.paramX(t[0])
+    maxY = tabFunction.paramX(t[1])
     if (relY < minY || relY > maxY) {
-      return colourPixel = false
+      return false
     }
   }
   /**
@@ -140,12 +147,12 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   **/
   if (properties.left == -1 && relX >= 0 && relX <= 0.5 && relY >= 1 && relY <= 2) {
 
-    var t = tabFunction.inverse(-relX)
+    t = tabFunction.inverse(-relX)
 
-    var minY = tabFunction.paramX(t[0])
-    var maxY = tabFunction.paramX(t[1])
+    minY = tabFunction.paramX(t[0])
+    maxY = tabFunction.paramX(t[1])
     if (relY > minY && relY < maxY) {
-      return colourPixel = false
+      return false
     }
   }
 
@@ -154,12 +161,12 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   **/
   if (relX >= 3 && relY >= 1 && relY <= 2) {
 
-    var t = tabFunction.inverse(-relX+3)
+    t = tabFunction.inverse(-relX+3)
 
-    var minY = tabFunction.paramX(t[0])
-    var maxY = tabFunction.paramX(t[1])
+    minY = tabFunction.paramX(t[0])
+    maxY = tabFunction.paramX(t[1])
     if (relY < minY || relY > maxY) {
-      return colourPixel = false
+      return false
     }
   }
   /**
@@ -167,12 +174,12 @@ function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
   **/
   if (properties.right == -1 && relX >= 2.5 && relX <= 3 && relY >= 1 && relY <= 2) {
 
-    var t = tabFunction.inverse(relX-3)
+    t = tabFunction.inverse(relX-3)
 
-    var minY = tabFunction.paramX(t[0])
-    var maxY = tabFunction.paramX(t[1])
+    minY = tabFunction.paramX(t[0])
+    maxY = tabFunction.paramX(t[1])
     if (relY > minY && relY < maxY) {
-      return colourPixel = false
+      return false
     }
   }
 
