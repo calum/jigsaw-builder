@@ -1,7 +1,23 @@
-[![Build Status](https://travis-ci.org/calum/jigsaw-builder.svg?branch=master)](https://travis-ci.org/calum/jigsaw-builder)[![codecov](https://codecov.io/gh/calum/jigsaw-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/calum/jigsaw-builder)[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e67ed250115a4db4b6ea44208a2b2e2f)](https://www.codacy.com/app/calumforster/jigsaw-builder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=calum/jigsaw-builder&amp;utm_campaign=Badge_Grade)
+<div align="center">
+  <img src="https://github.com/calum/jigsaw-builder/raw/master/docs/assets/logo.png" alt="Jigsaw-Builder" height="200" />
+</div>
 
-# Jigsaw Builder
-This module is used to build a jigsaw from an image file. It was developed to be used in a jigsaw game.
+<h1 align="center">
+Jigsaw-Builder
+</h1>
+
+<div align="center">
+  <a href="https://travis-ci.org/calum/jigsaw-builder">
+    <img src="https://travis-ci.org/calum/jigsaw-builder.svg?branch=master" alt="Build Status" />
+  </a>
+  <a href="https://codecov.io/gh/calum/jigsaw-builder">
+    <img src="https://codecov.io/gh/calum/jigsaw-builder/branch/master/graph/badge.svg" alt="Code Coverage" />
+  </a>
+</div>
+
+<div align="center">Build a jigsaw from an image! 🔨 </div>
+
+<br />
 
 If you need any help with getting your jigsaw built, you can either put an [issue on the GitHub page](https://github.com/calum/jigsaw-builder/issues) or email [calumforster@live.co.uk](calumforster@live.co.uk). I will be happy to help!
 
