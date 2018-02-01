@@ -57,13 +57,19 @@ You can now use these pieces on your website or app. Have fun!
 
 ## Documentation
 ```js
-var jigsawBuilder = require('jigsaw-builder')
+var jigsaw = require('jigsaw-builder')
+
+var options = {
+  input: './assets/penguin.png',
+  output: './assets/jigsaw/',
+  size: 8
+}
 
 /**
 * Build a 64 piece puzzle from penguin.png and output
 * the pieces to ./assets/jigsaw/.
 **/
-jigsawBuilder.build(8, './assets/penguin.png', './assets/jigsaw/', function (err) => {
+jigsaw.build(options, function (err) => {
   if (err) {
     return console.error(err)
   }

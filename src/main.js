@@ -24,7 +24,10 @@ var shouldPixelBeColoured = require('./pixels').shouldPixelBeColoured
 *   - callback:
 *       the function to be called upon completion
 **/
-function build(size, imageLocation, destinationDir, callback) {
+function build(options, callback) {
+  var size = options.size
+  var imageLocation = options.input
+  var destinationDir = options.output
 
   // make sure the destination directory exists
   fs.mkdir(destinationDir, function() {
