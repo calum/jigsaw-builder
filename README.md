@@ -57,11 +57,11 @@ You can now use these pieces on your website or app. Have fun!
 
 ## Documentation
 ```js
-var jigsaw = require('jigsaw-builder')
+var jigsaw = require("jigsaw-builder")
 
 var options = {
-  input: './assets/penguin.png',
-  output: './assets/jigsaw/',
+  input: "./assets/penguin.png",
+  output: "./assets/jigsaw/",
   size: 8
 }
 
@@ -73,7 +73,7 @@ jigsaw.build(options, function (err) => {
   if (err) {
     return console.error(err)
   }
-  console.log('done!')
+  console.log("done!")
 })
 ```
 

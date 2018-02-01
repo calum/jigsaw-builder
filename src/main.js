@@ -1,9 +1,9 @@
-var Jimp = require('jimp')
-var fs = require('fs')
+var Jimp = require("jimp")
+var fs = require("fs")
 
-var asyncLoop = require('./async.js').asyncLoop
-var generatePropertiesObj = require('./properties').generatePropertiesObj
-var shouldPixelBeColoured = require('./pixels').shouldPixelBeColoured
+var asyncLoop = require("./async.js").asyncLoop
+var generatePropertiesObj = require("./properties").generatePropertiesObj
+var shouldPixelBeColoured = require("./pixels").shouldPixelBeColoured
 
 /**
 * This is the main method used to generate
@@ -18,7 +18,7 @@ var shouldPixelBeColoured = require('./pixels').shouldPixelBeColoured
 *   - size:
 *       the number of desired pieces (e.g. a size of 8 generates an 8*8 jigsaw)
 *   - imageLocation:
-*       the location of the desired image (e.g. './cats/funnyCat.png')
+*       the location of the desired image (e.g. "./cats/funnyCat.png")
 *   - destinationDir:
 *       the location where the jig-saw and properties are stored
 *   - callback:
@@ -52,9 +52,9 @@ function build(options, callback) {
 
     // write the properties file
     fs.writeFile(
-      destinationDir+'properties.json',
+      destinationDir+"properties.json",
       JSON.stringify(properties,null,2),
-      'utf-8'
+      "utf-8"
     );
 
     // create an array of promises to fulfill when all the pieces
@@ -67,10 +67,10 @@ function build(options, callback) {
 
         // determine the types of tabs for this piece:
         // ( -1 means inner tab, +1 means outer tab, 0 means no tab)
-        var right = properties[''+i+j].right
-        var left = properties[''+i+j].left
-        var top = properties[''+i+j].top
-        var bottom = properties[''+i+j].bottom
+        var right = properties[""+i+j].right
+        var left = properties[""+i+j].left
+        var top = properties[""+i+j].top
+        var bottom = properties[""+i+j].bottom
 
         // Determine which tabs are sticking out
         var rightTab = (right == 1) ? 1 : 0
@@ -97,14 +97,14 @@ function build(options, callback) {
 
               var pixelX = x + (width/size)*j - leftTab*(width/size)/6
               var pixelY = y + (height/size)*i - topTab*(height/size)/6
-              if (shouldPixelBeColoured(pixelX, pixelY, properties[''+i+j], width, height, i, j, size)) {
+              if (shouldPixelBeColoured(pixelX, pixelY, properties[""+i+j], width, height, i, j, size)) {
                 try {
                   jigsawPiece.setPixelColor(image.getPixelColor( Math.floor(pixelX), Math.floor(pixelY)), x, y)
                 } catch (err) {
-                  console.log('image.getPixelColor( '+pixelX+', '+pixelY+')')
-                  console.log('piece: '+i+j)
-                  console.log('(x,y) = ('+x+', '+y+')')
-                  console.log('width and height: '+width+', '+height)
+                  console.log("image.getPixelColor( "+pixelX+", "+pixelY+")")
+                  console.log("piece: "+i+j)
+                  console.log("(x,y) = ("+x+", "+y+")")
+                  console.log("width and height: "+width+", "+height)
                   return next(err)
                 }
               }
@@ -114,7 +114,7 @@ function build(options, callback) {
 
           // Save these piece to file:
           var promise = new Promise(function(done) {
-            jigsawPiece.write(destinationDir+''+i+j+'.png', () => {
+            jigsawPiece.write(destinationDir+""+i+j+".png", () => {
               done()
             })
           })

@@ -20,10 +20,10 @@ function generatePropertiesObj(rows, cols) {
     for (j=0; j<cols; j++) {
 
       // initialise the object
-      properties[''+i+j] = generateTabs(i, j, rows, cols, properties)
+      properties[""+i+j] = generateTabs(i, j, rows, cols, properties)
 
       // add the coordinates
-      properties[''+i+j] = addRelativeCoords(properties[''+i+j], rows, cols)
+      properties[""+i+j] = addRelativeCoords(properties[""+i+j], rows, cols)
 
     }
 
@@ -53,11 +53,11 @@ function generateTabs(i, j, rows, cols, properties) {
       break
     case (rows-1):
       // This is a bottom row
-      piece.top = -1*properties[''+(i-1)+j].bottom
+      piece.top = -1*properties[""+(i-1)+j].bottom
       piece.bottom = 0
       break
     default:
-      piece.top = -1*properties[''+(i-1)+j].bottom
+      piece.top = -1*properties[""+(i-1)+j].bottom
       piece.bottom = Math.round(Math.random())
       if (piece.bottom == 0)
         piece.bottom--
@@ -75,11 +75,11 @@ function generateTabs(i, j, rows, cols, properties) {
       break
     case cols-1:
       // rightmost column
-      piece.left = -1*properties[''+i+(j-1)].right
+      piece.left = -1*properties[""+i+(j-1)].right
       piece.right = 0
       break
     default:
-      piece.left = -1*properties[''+i+(j-1)].right
+      piece.left = -1*properties[""+i+(j-1)].right
       piece.right = Math.round(Math.random())
       if (piece.right == 0)
         piece.right--

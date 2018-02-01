@@ -19,9 +19,9 @@
 
   <script>
     // Get the Canvas element
-    var canvas = document.getElementById('canvas');
+    var canvas = document.getElementById("canvas");
     // Get the context for the canvas:
-    var ctx = canvas.getContext('2d');
+    var ctx = canvas.getContext("2d");
 
     var max_width = 1024;
     var max_height = 768;
@@ -55,11 +55,11 @@
           var piece = new Image();
 
           // set the x and y coordinates
-          var x = properties[''+i+j].topLeftCorner.x*canvas.width*scale;
-          var y = properties[''+i+j].topLeftCorner.y*canvas.height*scale;
+          var x = properties[""+i+j].topLeftCorner.x*canvas.width*scale;
+          var y = properties[""+i+j].topLeftCorner.y*canvas.height*scale;
 
           // save this piece to the jigsaw object
-          jigsaw[''+i+j] = {image: piece, position: {x:x,y:y}};
+          jigsaw[""+i+j] = {image: piece, position: {x:x,y:y}};
 
           // when the piece is loaded, we can draw it onto the canvas
           piece.onload = function(event) {
@@ -81,7 +81,7 @@
           }
 
           // load the image
-          piece.src = 'jigsaw/'+i+j+'.png';
+          piece.src = "jigsaw/"+i+j+".png";
         }
       }
 
