@@ -87,7 +87,7 @@ The `build()` function accepts an `options` object and a `callback` function whi
 
 | Option | Default | Description |
 | :------ | :-------: | :----------- |
-| `input`| Required| The image you want to build the jigsaw from. This can be either a filepath or a url |
+| `input`| Required| The image you want to build the jigsaw from. This can be either a filepath or a url. |
 | `output` | Current directory | The directory you want to output your jigsaw pieces and `properties.json` to. _Must end with `/`._ |
 | `rows` | 5 | The number of rows you want the jigsaw to have. |
 | `columns` | 5 | The number of columns you want the jigsaw to have. |
