@@ -39,11 +39,11 @@ $ npm install
 # enter the examples folder
 $ cd examples/
 
-# run the test
-$ node test.js example.png
+# run the test ($ node test.js $input $rows $columns)
+$ node test.js example.png 8 8
 ```
 
-This will create a jigsaw from the `example.png` image (you can use your own image if you want).
+This will create an (8 by 8) jigsaw from the `example.png` image (you can use your own image if you want).
 
 <img src="https://raw.githubusercontent.com/calum/jigsaw-builder/master/examples/example.png" width="200">
 
@@ -56,17 +56,19 @@ Open the `index.html` file in your browser to see how it all fits together! _You
 You can now use these pieces on your website or app. Have fun!
 
 ## Documentation
+### Example Usage
 ```js
 var jigsaw = require("jigsaw-builder")
 
 var options = {
   input: "./assets/penguin.png",
   output: "./assets/jigsaw/",
-  size: 8
+  rows: 8,
+  columns: 8
 }
 
 /**
-* Build a 64 piece puzzle from penguin.png and output
+* Build a 64 piece (8 by 8) puzzle from penguin.png and output
 * the pieces to ./assets/jigsaw/.
 **/
 jigsaw.build(options, function (err) => {
@@ -76,6 +78,17 @@ jigsaw.build(options, function (err) => {
   console.log("done!")
 })
 ```
+
+### Options
+The `build()` function accepts an `options` object which can contain the following fields:
+| option | default | description |
+| ------ | ------- | ----------- |
+| `input`| Required| The image you want to build the jigsaw from. This can be either a filepath or a url |
+| `output` | Current directory | The directory you want to output your jigsaw pieces and `properties.json` to. _Must end with '/'._ |
+| `rows` | 5 | The number of rows you want the jigsaw to have. |
+| `columns` | 5 | The number of columns you want the jigsaw to have. |
+| `size` | 5 | This value overrides the `rows` and `columns` to make a jigsaw with equal rows and columns. |
+_The only required field is `input`._
 
 ### Output
 The `build()` function, when called with the first argument `n`, produces `n*n` jigsaw piece image files, and a `properties.json` file. The `properties.json` file stores the relative coordinates of each jig-saw piece. This is needed because the tabs of each jig-saw piece stick out slightly, meaning the jigsaw piece's actual centre is shifted away from where you'd want to place it.

@@ -24,10 +24,10 @@ var tabFunction = {
     return [t1, t2]
   }
 }
-function shouldPixelBeColoured(x,y, properties, width, height, i, j, size) {
+function shouldPixelBeColoured(x, y, properties, width, height, i, j, rows, columns) {
   // convert each jigsaw piece into a square 3 units wide and 3 tall
-  var relX = 3*(x - (width/size)*j)/(width/size)
-  var relY = 3*(y - (height/size)*i)/(height/size)
+  var relX = 3*(x - (width/columns)*j)/(width/columns)
+  var relY = 3*(y - (height/rows)*i)/(height/rows)
   // width and height are referring to the whole image and not the individual
   // jigsaw piece (width/height is the jigsaw piece's width)
 

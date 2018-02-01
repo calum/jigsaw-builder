@@ -35,21 +35,23 @@
       var properties = data;
       var overview = properties.overview;
 
+      var rows = overview.horizontalPieces;
+      var columns = overview.verticalPieces;
+
       // set the canvas width and height
       canvas.width = overview.width;
-      canvas.height= overview.height;
+      canvas.height = overview.height;
 
       if (canvas.width*scale > max_width) {
         scale = max_width/canvas.width;
       }
       if (canvas.height*scale > max_height) {
-        scale = max_height/canvas.heigth;
+        scale = max_height/canvas.height;
       }
 
       // add each jigsaw piece to test they fit together correctly
-      var size = 8;
-      for (j=0; j<size; j++) {
-        for (i=0; i<size; i++) {
+      for (j=0; j<rows; j++) {
+        for (i=0; i<columns; i++) {
 
           // this will hold the jigsaw piece
           var piece = new Image();

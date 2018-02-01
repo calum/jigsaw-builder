@@ -15,14 +15,15 @@ describe("Pixel manipulation tests", function() {
     var height = 250
     var i = 2
     var j = 2
-    var size = 5
+    var rows = 5
+    var columns = 5
 
     // each piece is roughly 50 pixels by 50 pixels
     var x = 125
     var y = 105
 
     // (x, y) is a point within the inverted top tab so should be blank
-    assert(!shouldPixelBeColoured(x, y, properties, width, height, i, j, size))
+    assert(!shouldPixelBeColoured(x, y, properties, width, height, i, j, rows, columns))
   })
 
   it("should identify a pixel to be coloured correctly", function() {
@@ -33,13 +34,14 @@ describe("Pixel manipulation tests", function() {
     var height = 250
     var i = 2
     var j = 2
-    var size = 5
+    var rows = 5
+    var columns = 5
 
     // each piece is roughly 50 pixels by 50 pixels
     var x = 125
     var y = 95
 
     // (x, y) is a point within the inverted top tab so should be blank
-    assert(shouldPixelBeColoured(x, y, properties, width, height, i, j, size))
+    assert(shouldPixelBeColoured(x, y, properties, width, height, i, j, rows, columns))
   })
 })

@@ -3,6 +3,8 @@ var build = require("../").build
 var Jimp = require("jimp")
 
 var filename = process.argv[2]
+var rows = process.argv[3]
+var columns = process.argv[4]
 
 if (!filename) {
   return console.log("You need to provide a filename. e.g. node test.js example.png")
@@ -46,11 +48,18 @@ Jimp.read(filename, function (err, img) {
 * to worry about image size.
 **/
 function run() {
-var options = {
-  input: "./example.jpg",
-  output: "./jigsaw/",
-  size: 8
-}
+  var size = 8
+  if (rows && columns) {
+    var size = null
+  }
+
+  var options = {
+    input: "./example.jpg",
+    output: "./jigsaw/",
+    size: size,
+    rows: rows,
+    columns: columns
+  }
 
   // To run this test, add a .png image to the examples directory
   build(options, function (err) {

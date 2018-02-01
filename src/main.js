@@ -15,19 +15,37 @@ var shouldPixelBeColoured = require("./pixels").shouldPixelBeColoured
 *   where 0 < t < 1.
 *
 * Parameters:
-*   - size:
+*   - size (optional):
 *       the number of desired pieces (e.g. a size of 8 generates an 8*8 jigsaw)
-*   - imageLocation:
+*   - input:
 *       the location of the desired image (e.g. "./cats/funnyCat.png")
-*   - destinationDir:
-*       the location where the jig-saw and properties are stored
+*   - output (optional):
+*       the location where the jig-saw and properties are stored.
+*       Defaults to the current directory.
+*   - cols (optional):
+*       the number of columns to make the jigsaw (optional)
+*   - rows (optional):
+*       the number of rows to make the jigsaw (options)
 *   - callback:
 *       the function to be called upon completion
 **/
 function build(options, callback) {
   var size = options.size
+  var rows = options.rows
+  var columns = options.columns
   var imageLocation = options.input
-  var destinationDir = options.output
+  var destinationDir = options.output || "./"
+
+  // add default size of 5 by 5
+  if (!size && !rows && !columns) {
+    size = 5
+  }
+
+  // Size will override the rows and columns
+  if (size) {
+    rows = size
+    columns = size
+  }
 
   // make sure the destination directory exists
   fs.mkdir(destinationDir, function() {
@@ -42,12 +60,12 @@ function build(options, callback) {
     var height = image.bitmap.height
 
     // create the properties object
-    var properties = generatePropertiesObj(size, size)
+    var properties = generatePropertiesObj(rows, columns)
     properties.overview = {
       height: height,
       width: width,
-      horizontalPieces: size,
-      verticalPieces: size
+      horizontalPieces: columns,
+      verticalPieces: rows
     }
 
     // write the properties file
@@ -62,8 +80,8 @@ function build(options, callback) {
     var promises = []
 
     // Loop over each new image segment:
-    asyncLoop(size, 0, (i, next) => {
-      asyncLoop(size, 0, (j, next) => {
+    asyncLoop(rows, 0, (i, next) => {
+      asyncLoop(columns, 0, (j, next) => {
 
         // determine the types of tabs for this piece:
         // ( -1 means inner tab, +1 means outer tab, 0 means no tab)
@@ -79,8 +97,8 @@ function build(options, callback) {
         var bottomTab = (bottom == 1) ? 1 : 0
 
         // Add 1/6th the relative size for each tab that sticks out
-        var widthOfPiece = ((width/size)*(1+((rightTab+leftTab)/6)))
-        var heightOfPiece = ((height/size)*(1+((topTab+bottomTab)/6)))
+        var widthOfPiece = ((width/columns)*(1+((rightTab+leftTab)/6)))
+        var heightOfPiece = ((height/rows)*(1+((topTab+bottomTab)/6)))
 
         // Create the jig-saw piece
         new Jimp(Math.ceil(widthOfPiece), Math.ceil(heightOfPiece), (err, jigsawPiece) => {
@@ -95,9 +113,9 @@ function build(options, callback) {
           for (x = 0; x < widthOfPiece; x++) {
             for (y =0; y < heightOfPiece; y++) {
 
-              var pixelX = x + (width/size)*j - leftTab*(width/size)/6
-              var pixelY = y + (height/size)*i - topTab*(height/size)/6
-              if (shouldPixelBeColoured(pixelX, pixelY, properties[""+i+j], width, height, i, j, size)) {
+              var pixelX = x + (width/columns)*j - leftTab*(width/columns)/6
+              var pixelY = y + (height/rows)*i - topTab*(height/rows)/6
+              if (shouldPixelBeColoured(pixelX, pixelY, properties[""+i+j], width, height, i, j, rows, columns)) {
                 try {
                   jigsawPiece.setPixelColor(image.getPixelColor( Math.floor(pixelX), Math.floor(pixelY)), x, y)
                 } catch (err) {
