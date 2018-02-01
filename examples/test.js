@@ -62,12 +62,12 @@ function run() {
   }
 
   // To run this test, add a .png image to the examples directory
-  build(options, function (err) {
+  build(options, function (err, properties) {
     if (err) {
       console.log("Finished with error: ")
       return console.log(err)
     }
-
+    
     console.log("Success! Check the jigsaw/ directory for the pieces.")
     console.log("Open the index.html file to check it has worked.")
   })

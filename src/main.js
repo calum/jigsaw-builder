@@ -152,7 +152,7 @@ function build(options, callback) {
 
       // wait for the promises to complete:
       Promise.all(promises).then(() => {
-        callback(null)
+        callback(null, properties)
       })
     })
   })
