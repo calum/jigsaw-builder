@@ -46,8 +46,14 @@ Jimp.read(filename, function (err, img) {
 * to worry about image size.
 **/
 function run() {
+var options = {
+  input: './example.jpg',
+  output: './jigsaw/',
+  size: 8
+}
+
   // To run this test, add a .png image to the examples directory
-  build(8, './example.jpg', './jigsaw/', function (err) {
+  build(options, function (err) {
     if (err) {
       console.log('Finished with error: ')
       return console.log(err)
