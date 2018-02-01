@@ -14,7 +14,12 @@ describe('Jigsaw-Builder tests', function() {
   var dest = path.join(__dirname, 'test_data/results/')
 
   it('should output the correct number of jigsaw pieces', function(done) {
-    build(5, src, dest, function(err) {
+    var options = {
+      input: src,
+      output: dest,
+      size: 5
+    }
+    build(options, function(err) {
       if (err) done(err)
 
       fs.readdir(dest, function(err, files) {
@@ -28,7 +33,12 @@ describe('Jigsaw-Builder tests', function() {
   })
 
   it('should output a properties.json file', function(done) {
-    build(5, src, dest, function(err) {
+    var options = {
+      input: src,
+      output: dest,
+      size: 5
+    }
+    build(options, function(err) {
       if (err) done(err)
 
       fs.readdir(dest, function(err, files) {
