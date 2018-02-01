@@ -13,6 +13,11 @@ Jigsaw-Builder
   <a href="https://codecov.io/gh/calum/jigsaw-builder">
     <img src="https://codecov.io/gh/calum/jigsaw-builder/branch/master/graph/badge.svg" alt="Code Coverage" />
   </a>
+  <a href="https://www.codacy.com/app/calumforster/jigsaw-builder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=calum/jigsaw-builder&amp;utm_campaign=Badge_Grade">
+    <img
+      src="https://api.codacy.com/project/badge/Grade/e67ed250115a4db4b6ea44208a2b2e2f"
+    />
+  </a>
 </div>
 
 <div align="center">Build a jigsaw from an image! 🔨 </div>
