@@ -1,1 +1,0 @@
-require('./properties_tests')
