@@ -1,5 +1,5 @@
 <div align="center">
-  <a hred="https://calum.github.io/jigsaw-builder">
+  <a href="https://calum.github.io/jigsaw-builder">
     <img src="https://github.com/calum/jigsaw-builder/raw/master/docs/assets/logo.png" alt="Jigsaw-Builder" height="200" />
   </a>
 </div>
