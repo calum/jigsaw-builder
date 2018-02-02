@@ -4,6 +4,8 @@
   "description": "Takes an image file and converts it into jigsaw pieces.",
   "main": "src/main.js",
   "scripts": {
+    "docsify": "./node_modules/.bin/docsify",
+    "docsify-serve": "./node_modules/.bin/docsify serve docs",    
     "coverage": "./node_modules/.bin/nyc report --reporter=lcov > coverage.lcov",
     "lint": "./node_modules/.bin/jshint src/*.js test/*.js",
     "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text mocha && npm run lint"
@@ -23,6 +25,7 @@
     "url": "https://github.com/calum/jigsaw-builder.git"
   },
   "devDependencies": {
+    "docsify-cli": "^4.2.0",
     "jshint": "^2.9.5",
     "mocha": "^5.0.0",
     "nyc": "^11.4.1"
