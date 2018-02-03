@@ -1,11 +1,11 @@
 {
   "name": "jigsaw-builder",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "description": "Takes an image file and converts it into jigsaw pieces.",
   "main": "src/main.js",
   "scripts": {
     "docsify": "./node_modules/.bin/docsify",
-    "docsify-serve": "./node_modules/.bin/docsify serve docs",    
+    "docsify-serve": "./node_modules/.bin/docsify serve docs",
     "coverage": "./node_modules/.bin/nyc report --reporter=lcov > coverage.lcov",
     "lint": "./node_modules/.bin/jshint src/*.js test/*.js",
     "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text mocha && npm run lint"

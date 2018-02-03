@@ -4,7 +4,6 @@ examples/example.jpg
 examples/jigsaw/
 .nyc_output
 coverage
-package-lock.json
 test/test_data/results
 .coverage.lcov
 coverage.lcov
